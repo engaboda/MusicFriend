@@ -1,0 +1,141 @@
+
+
+
+
+{% extends 'album/base_page.html'%}
+{%block head%}edit profile{%endblock head%}
+{%block body %}
+
+<div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        {%for album in albums%}
+                        <a href="{% url 'album:detail' album.id%}">
+                        {% if album.album_logo %}
+                            <img src="{{album.album_logo.url}}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <p>{{ album.title }} <small>{{ album.general }}</small></p>
+                    <p>{{ album.artist }}</p>
+
+                </div>
+            </div>
+        </div>
+
+<div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{%url 'album:index' %}">View All</a></li>
+                <li role="presentation"><a href="" >Add New Song</a></li>
+            </ul>
+
+
+
+
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>Add Song</h3>
+                    <hr>
+                        <div>
+                            <audio>
+
+                            </audio>
+
+                        </div>
+                        <div>
+                            
+                        </div>
+                        
+                        
+                        
+
+
+                        <div class="panel-body" >
+                            <form  method='POST' class="form-horizontal" role="form" action='{%url 'album:add_song' album.id %}' enctype='multipart/form-data'>{%csrf_token%}
+                                                    {%endfor%}
+                                <div id="signupalert" style="display:none" class="alert alert-danger">
+                                    <p>Error:</p>
+                                    <span></span>
+                                </div>
+                                    
+                                
+                                  
+                                <div class="form-group">
+                                    <label for="title" class="col-md-3 control-label">Title</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="title" placeholder="Title">
+                                    </div>
+                                </div>
+                                    
+                                <div class="form-group">
+                                    <label for="firstname" class="col-md-3 control-label">File Type</label>
+                                    <div class="col-md-9">
+                                          <select name="file_type">
+                    					    <option value="mp3">Mp3</option>
+                    					    <option value="ogg">Ogg</option>
+                    					  </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-md-3 control-label">Music file</label>
+                                    <div class="col-md-9">
+                                        {{form.as_p}}
+                                    </div>
+                                </div>
+                                
+                                    
+                                
+
+                                <div class="form-group">
+                                    <!-- Button -->                                        
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button id="btn-signup" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Add Song</button>
+
+                                    </div>
+                                </div>
+                                
+                                <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
+                                    
+                                    <div class="col-md-offset-3 col-md-9">
+                                        
+                                    </div>                                           
+                                        
+                                </div>
+                                
+                                
+                                
+                            </form>
+                         </div>
+                    </div>
+
+               
+               
+                
+         </div> 
+    </div>
+    
+
+
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+

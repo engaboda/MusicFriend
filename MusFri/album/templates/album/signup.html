@@ -1,0 +1,26 @@
+{% extends 'album/base_page.html' %}
+{%block body%}
+<div class="container col-sm-offset-4" style="margin-top: 100px;" >
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
+<form method="POST">
+    {%csrf_token%}
+    {%for field in form %}
+    <p>
+        {{field.label_tag}}
+        <br>
+        {{field}}
+        {% if field.help_text %}
+        <small style="color:gar;">{{field.help_text}}</small>
+        {%endif%}
+        {% for error in field.errore%}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        </p>
+        {%endfor%}        
+    <button type="submit">Sign Up</button><small><a href="{%url 'album:signin' %}">signin</a></small>
+</form>
+</div> 
+</div>
+</div> 
+{%endblock body%}

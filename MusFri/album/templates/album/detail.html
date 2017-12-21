@@ -1,0 +1,121 @@
+{% extends 'album/base_page.html' %}
+{% block title %}{{ album }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+{% load staticfiles%}
+{% block body %}
+
+
+
+
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        {%for album in albums%}
+                        <a href="{% url 'album:detail' album.id%}">
+                        {% if album.album_logo %}
+                            <img src="{{album.album_logo.url}}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <p>{{ album.title }} <small>{{ album.general }}</small></p>
+                    <p>{{ album.artist }}</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{%url 'album:index' %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'album:add_song'  album.id %}" >Add New Song</a></li>
+                {%endfor%}
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Songs</h3>
+                        <div>
+                            <audio>
+
+                            </audio>
+
+                        </div>
+                        <div>
+                            <audio>
+                                <source src="/home/pentester/Desktop/MusFri/media/Mother.mp3" type="audio/mp3">
+                            </audio>
+                        </div>
+
+
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Audio File</th>
+                            <th>Favorite</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        {%for song in songs %}
+                        <tr>
+                            <td>
+                                {{song.title}}
+                            </td>
+                            <td>
+                                <p>
+                                    <form>
+                                          <button type="button" class="btn btn-info btn-sm">Play</button>
+                                    </form>
+                                </p>
+                            </td>
+                            <td>
+                                    {%if song.is_favorite%}
+                                    <a href="#">
+                                            <span class="glyphicon glyphicon-star"></span>
+                                          </a>
+                                          <form action="{% url 'album:favorite' %}" method="GET" style="display:inline"> 
+                                            <input type="radio" name="bad"  id="favorbadite" >
+                                            <input type="hidden" name="id" , value="{{song.album_id}}">
+                                            <input type="hidden" name="song_id" , value="{{song.id}}">
+                                            <button type="submit" class="btn btn-info"  id="like" >bad</button> 
+                                        </form>        
+                                    {%else%}
+                                    <form action="{% url 'album:favorite' %}" method="GET" style="display:inline">
+                                        <input type="radio" name="favorite" id="favorite">
+                                        <input type="hidden" name="id" , value="{{song.album_id}}">
+                                        <input type="hidden" name="song_id" , value="{{song.id}}">
+                                        <button type="submit" class="btn btn-info"  id="like" >like</button> 
+                                    </form>                                   
+                                        {%endif%}
+
+                            </td>
+                            <td>
+                                    <button class="btn btn-info btn-sm" type="submit">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,12 @@
+{% extends 'album/base_page.html'%}
+{%block head%}edit profile{%endblock head%}
+{%block body %}
+
+
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save" />
+</form>
+
+{%endblock%}
